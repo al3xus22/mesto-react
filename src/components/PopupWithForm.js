@@ -2,7 +2,7 @@ import React from "react";
 
 function PopupWithForm({name, title, isOpen, onClose, textButton, children}) {
   return (
-    <dvi className={`popup popup_${name} ${isOpen ? "popup_opened" : ""}`}>
+    <div className={`popup popup_${name} ${isOpen ? "popup_opened" : ""}`}>
       <div className={`popup__container popup__container_${name}`}>
         <button className="popup__button-close" type="button" onClick={onClose}></button>
         <h2 className="popup__title">{title}</h2>
@@ -11,7 +11,7 @@ function PopupWithForm({name, title, isOpen, onClose, textButton, children}) {
           <button className={`popup__button-submit popup__button-submit_${name}`} type="submit">{textButton}</button>
         </form>
       </div>
-    </dvi>
+    </div>
   );
 }
 

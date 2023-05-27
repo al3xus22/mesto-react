@@ -27,13 +27,13 @@ class Api {
     })
   }
 
-  setUserInfo({name, job}) {
+  setUserInfo({name, about}) {
     return fetch(`${this.url}/users/me`, {
       method: 'PATCH',
       headers: this.headers,
       body: JSON.stringify({
         name: name,
-        about: job
+        about: about
       })
     }).then(res => {
       return this._checkResponse(res);
@@ -74,18 +74,9 @@ class Api {
     })
   }
 
-  putLike(cardId) {
+  changeLikeCardStatus(cardId, isLiked) {
     return fetch(`${this.url}/cards/${cardId}/likes`, {
-      method: 'PUT',
-      headers: this.headers
-    }).then(res => {
-      return this._checkResponse(res);
-    })
-  }
-
-  deleteLike(cardId) {
-    return fetch(`${this.url}/cards/${cardId}/likes`, {
-      method: 'DELETE',
+      method: isLiked ? 'PUT' : 'DELETE',
       headers: this.headers
     }).then(res => {
       return this._checkResponse(res);

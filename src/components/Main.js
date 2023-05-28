@@ -29,10 +29,6 @@ function Main(props) {
               onCardClick={props.onCardClick}
               card={item}
               key={item._id}
-              link={item.link}
-              title={item.name}
-              likes={item.likes}
-              owner={item.owner}
             />
           ))
           }

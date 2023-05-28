@@ -13,6 +13,11 @@ function AddPlacePopup(props) {
     })
   }
 
+  React.useEffect(() => {
+    inputTitleRef.current.value = '';
+    inputLinkRef.current.value = '';
+  }, [props.isOpen]);
+
   return (
     <PopupWithForm
       name="add"

@@ -26,12 +26,12 @@ function Card(props) {
     <>
       <li className="element">
         {isOwn && <button className='element__trash' onClick={handleDeleteClick}/>}
-        <img src={props.link} alt={props.title} className="element__image" onClick={handleClick}/>
+        <img src={props.card.link} alt={props.card.title} className="element__image" onClick={handleClick}/>
         <div className="element__content">
-          <h2 className="element__name">{props.title}</h2>
+          <h2 className="element__name">{props.card.title}</h2>
           <div className="element__like-container">
             <button onClick={handleLikeClick} className={cardLikeButtonClassName} type="button"></button>
-            <p className="element__likes">{props.likes.length}</p>
+            <p className="element__likes">{props.card.likes.length}</p>
           </div>
         </div>
       </li>

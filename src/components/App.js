@@ -50,22 +50,22 @@ function App() {
     api.setUserInfo(newUserData)
       .then((userData) => {
         setCurrentUser(userData);
+        closeAllPopups()
       })
       .catch((error) => {
         console.log(error)
-      })
-      .finally(() => closeAllPopups());
+      });
   }
 
   function handleAddPlaceSubmit(data) {
     api.addNewCard(data)
       .then((newCard) => {
         setCards([newCard, ...cards]);
+        closeAllPopups();
       })
       .catch((error) => {
         console.log(error)
-      })
-      .finally(() => closeAllPopups());
+      });
   }
 
   function handleCardLike(card) {
@@ -79,43 +79,50 @@ function App() {
       })
   }
 
-  function handleUpdateAvatar(avatar) {
-    api.updateUserAvatar(avatar)
-      .then((res) => {
-        setCurrentUser(res);
+  function handleUpdateAvatar(userData) {
+    api.updateUserAvatar(userData)
+      .then((userAvatar) => {
+        setCurrentUser(userAvatar);
+        closeAllPopups();
       })
       .catch((error) => {
         console.log(error)
-      })
-      .finally(() => {
-        closeAllPopups();
       });
   }
 
-  function handleEscPress(evt) {
-    if (evt.key === 'Escape') {
-      closeAllPopups();
+  React.useEffect(() => {
+    function handleEscPress(evt) {
+      if (evt.key === 'Escape') {
+        closeAllPopups();
+      }
     }
-  }
+
+    const handleOverlayClick = (evt) => {
+      if (evt.target.classList.contains('popup_opened')) {
+        closeAllPopups();
+      }
+    };
+    if (isEditProfilePopupOpen || isAddPlacePopupOpen || isEditAvatarPopupOpen || isConfirmDeletePopupOpen || selectedCard) {
+      document.addEventListener('keydown', handleEscPress);
+      document.addEventListener('click', handleOverlayClick);
+      return () => {
+        document.removeEventListener('keydown', handleEscPress);
+        document.removeEventListener('mousedown', handleOverlayClick);
+      }
+    }
+  }, [isEditProfilePopupOpen, isAddPlacePopupOpen, isEditAvatarPopupOpen, isConfirmDeletePopupOpen, selectedCard])
 
   function handleEditAvatarClick() {
     setEditAvatarPopupOpen(true);
-    document.addEventListener('keydown', handleEscPress);
-    document.addEventListener('click', (event) => {
-      if (event.target === event.currentTarget) {
-        closeAllPopups();
-      }
-    });
+    
   }
 
   function handleEditProfileClick() {
     setEditProfilePopupOpen(true);
-    document.addEventListener('keydown', handleEscPress);
   }
 
   function handleAddPlaceClick() {
     setAddPlacePopupOpen(true);
-    document.addEventListener('keydown', handleEscPress);
   }
 
   function handleCardClick(selectedCard) {
@@ -127,19 +134,16 @@ function App() {
       .then((res) => {
         const newCard = cards.filter((item) => item._id !== cardId);
         setCards(newCard);
+        closeAllPopups();
       })
       .catch((error) => {
         console.log(error)
-      })
-      .finally(() => {
-        closeAllPopups();
       });
   }
 
   function handleDeletePlaceClick(card) {
     setCardId(card);
     setConfirmDeletePopupOpen(true);
-    document.addEventListener('keydown', handleEscPress);
   }
 
   function closeAllPopups() {
@@ -147,7 +151,6 @@ function App() {
     setEditProfilePopupOpen(false);
     setAddPlacePopupOpen(false);
     setConfirmDeletePopupOpen(false);
-    document.removeEventListener('keydown', handleEscPress);
     setSelectedCard({});
   }
 

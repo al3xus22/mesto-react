@@ -25,5 +25,5 @@ ____
 * React
 
 ***
-[Приятного
-просмотра!<img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Telegram-Animated-Emojis/main/People/Eyes.webp" alt="Eyes" width="25" height="25" />](https://al3xus22.github.io/mesto-react/)
+<a href="https://al3xus22.github.io/mesto-react/" target="_blank">Приятного
+просмотра!<img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Telegram-Animated-Emojis/main/People/Eyes.webp" alt="Eyes" width="25" height="25" /></a>
